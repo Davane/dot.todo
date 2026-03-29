@@ -1,0 +1,10 @@
+# Today
+- [x] Review @src/extension.ts at 10:30am
+- [x] Update README
+- [x] Check @docs/spec.md tomorrow 2pm
+
+# Later
+- [ ] Refactor @lib/parser.ts
+
+Plain lines show as muted text.
+**Markdown is not rendered** — it stays as plain text.
