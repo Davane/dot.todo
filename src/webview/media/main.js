@@ -18,6 +18,11 @@
     for (const s of spans || []) {
       if (s.kind === 'text') {
         frag.appendChild(textSpan(s.text));
+      } else if (s.kind === 'html') {
+        const w = document.createElement('span');
+        w.className = 'md-inline';
+        w.innerHTML = s.html;
+        frag.appendChild(w);
       } else if (s.kind === 'time') {
         const el = document.createElement('span');
         el.className = 'time-chip';
@@ -65,11 +70,23 @@
         root.appendChild(h);
         continue;
       }
+      if (row.type === 'codeBlock') {
+        const pre = document.createElement('pre');
+        pre.className = 'md-fence';
+        const code = document.createElement('code');
+        if (row.language) {
+          code.className = 'language-' + row.language;
+        }
+        code.textContent = row.code;
+        pre.appendChild(code);
+        root.appendChild(pre);
+        continue;
+      }
       if (row.type === 'plain') {
-        const p = document.createElement('p');
-        p.className = 'plain';
-        p.textContent = row.text;
-        root.appendChild(p);
+        const d = document.createElement('div');
+        d.className = 'plain md-block';
+        d.innerHTML = row.html || '';
+        root.appendChild(d);
         continue;
       }
       if (row.type === 'todo') {

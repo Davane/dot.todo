@@ -1,10 +1,19 @@
 # Today
-- [x] Review @src/extension.ts at 10:30am
+- [x] **Review** @src/extension.ts at 10:30am
 - [x] Update README
 - [x] Check @docs/spec.md tomorrow 2pm
+- [ ] Inline `code`, *italic*, ~~done~~
 
 # Later
 - [ ] Refactor @lib/parser.ts
 
-Plain lines show as muted text.
-**Markdown is not rendered** — it stays as plain text.
+## Plain-line markdown
+Horizontal rule below:
+
+---
+
+```ts
+const x = 1;
+```
+
+Strikethrough ~~old text~~ and **bold** on plain lines.

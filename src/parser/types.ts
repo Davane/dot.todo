@@ -1,8 +1,14 @@
-export type InlineSpanKind = 'text' | 'time' | 'fileRef';
+export type InlineSpanKind = 'text' | 'html' | 'time' | 'fileRef';
 
 export interface InlineSpanText {
   kind: 'text';
   text: string;
+}
+
+/** Host-sanitized inline HTML (bold, italic, code, strikethrough, etc.) */
+export interface InlineSpanHtml {
+  kind: 'html';
+  html: string;
 }
 
 export interface InlineSpanTime {
@@ -21,7 +27,11 @@ export interface InlineSpanFileRef {
   fileExists: boolean;
 }
 
-export type InlineSpan = InlineSpanText | InlineSpanTime | InlineSpanFileRef;
+export type InlineSpan =
+  | InlineSpanText
+  | InlineSpanHtml
+  | InlineSpanTime
+  | InlineSpanFileRef;
 
 export interface ParsedEmpty {
   type: 'empty';
@@ -42,17 +52,28 @@ export interface ParsedTodoItem {
   spans: InlineSpan[];
 }
 
+/** Raw source line (for debugging); `html` is host-sanitized block markdown. */
 export interface ParsedPlain {
   type: 'plain';
   line: number;
   text: string;
+  html: string;
+}
+
+export interface ParsedCodeBlock {
+  type: 'codeBlock';
+  /** Opening fence line index */
+  line: number;
+  language: string;
+  code: string;
 }
 
 export type ParsedLine =
   | ParsedEmpty
   | ParsedSection
   | ParsedTodoItem
-  | ParsedPlain;
+  | ParsedPlain
+  | ParsedCodeBlock;
 
 export interface TodoDocumentModel {
   revision: number;
